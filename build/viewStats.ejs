@@ -1,0 +1,201 @@
+<!DOCTYPE html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width, initial-scale=1.0"><meta name=description><script src=http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js></script><script src=http://code.highcharts.com/highcharts.js></script><script src=http://code.highcharts.com/modules/exporting.js></script><style type=text/css>
+        .chartSize{
+            height: 100%;
+            width: 50%;
+            position: relative;
+        }
+    </style><script type=text/javascript>
+        $(function () {
+            <%  if (data.length > 0 && data != 'undefined' && data != null && data) {
+            var comp1 = [];
+            var comp2 = [];
+            for(var i=0; i<data.length;i++){
+                if(data[i].Company_Name == company1) {
+                    comp1.push(data[i]);
+                }
+                else if(data[i].Company_Name == company2){
+                    comp2.push(data[i]);
+                }
+
+            }
+            console.log(JSON.stringify(data));
+            %>
+
+            $('#container1').highcharts({
+                        chart: {
+                            type: 'column'
+                        },
+                        title: {
+                            text: 'Stock Symbol: <%= comp1[0].Company_Name.toString().toUpperCase() %>'
+                        },
+                        /*  subtitle: {
+                         text: 'Source: WorldClimate.com'
+                         }, */
+
+                        xAxis: {
+                            categories: [
+                                'Current Assests',
+                                'Liability',
+                                'Gross Profit',
+                                'Share Value',
+                                'Employees',
+                                'Gross Margin',
+                                'Cash Equivalent'
+
+                            ],
+                            crosshair: true
+                        }
+                        ,
+                        yAxis: {
+                            min: 0,
+                            title: {
+                                text: 'Amount (billions)'
+                            }
+                        }
+                        ,
+                        tooltip: {
+                            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                            '<td style="padding:0"><b>{point.y:.1f} bn</b></td></tr>',
+                            footerFormat: '</table>',
+                            shared: true,
+                            useHTML: true
+                        }
+                        ,
+                        plotOptions: {
+                            column: {
+                                pointPadding: 0,
+                                borderWidth: 0
+                            }
+                        }
+                        ,
+                        series: [{
+
+                            name: "<%= comp1[0].Year %>",
+                            data: [
+                                <%= comp1[0].Total_Current_Assets %>,
+                                <%= comp1[0].Total_Liabilities %>,
+                                <%= comp1[0].Gross_Margin %>,
+                                <%= comp1[0].Share_Values %>,
+                                <%= comp1[0].Number_of_Employees %>,
+                                <%= comp1[0].Cash_and_Cash_Equivalents %>
+                            ]
+
+                        }, {
+
+                            name: "<%= comp1[1].Year %>",
+                            data: [
+                                <%= comp1[1].Total_Current_Assets %>,
+                                <%= comp1[1].Total_Liabilities %>,
+                                <%= comp1[1].Gross_Margin %>,
+                                <%= comp1[1].Share_Values %>,
+                                <%= comp1[1].Number_of_Employees %>,
+                                <%= comp1[1].Cash_and_Cash_Equivalents %>
+                            ]
+                        },
+                            {
+
+                                name: "<%= comp1[2].Year %>",
+                                data: [
+                                    <%= comp1[2].Total_Current_Assets %>,
+                                    <%= comp1[2].Total_Liabilities %>,
+                                    <%= comp1[2].Gross_Margin %>,
+                                    <%= comp1[2].Share_Values %>,
+                                    <%= comp1[2].Number_of_Employees %>,
+                                    <%= comp1[2].Cash_and_Cash_Equivalents %>
+                                ]
+                            }]
+                    }
+            );
+
+            $('#container2').highcharts({
+                        chart: {
+                            type: 'column'
+                        },
+                        title: {
+                            text: 'Stock Symbol: <%= comp2[0].Company_Name.toString().toUpperCase() %>'
+                        },
+                        /*  subtitle: {
+                         text: 'Source: WorldClimate.com'
+                         }, */
+
+                        xAxis: {
+                            categories: [
+                                'Current Assests',
+                                'Liability',
+                                'Gross Profit',
+                                'Share Value',
+                                'Employees',
+                                'Gross Margin',
+                                'Cash Equivalent'
+
+                            ],
+                            crosshair: true
+                        }
+                        ,
+                        yAxis: {
+                            min: 0,
+                            title: {
+                                text: 'Amount (billions)'
+                            }
+                        }
+                        ,
+                        tooltip: {
+                            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                            '<td style="padding:0"><b>{point.y:.1f} bn</b></td></tr>',
+                            footerFormat: '</table>',
+                            shared: true,
+                            useHTML: true
+                        }
+                        ,
+                        plotOptions: {
+                            column: {
+                                pointPadding: 0,
+                                borderWidth: 0
+                            }
+                        }
+                        ,
+                        series: [{
+
+                            name: "<%= comp2[0].Year %>",
+                            data: [
+                                <%= comp2[0].Total_Current_Assets %>,
+                                <%= comp2[0].Total_Liabilities %>,
+                                <%= comp2[0].Gross_Margin %>,
+                                <%= comp2[0].Share_Values %>,
+                                <%= comp2[0].Number_of_Employees %>,
+                                <%= comp2[0].Cash_and_Cash_Equivalents %>
+                            ]
+
+                        }, {
+
+                            name: "<%= comp2[1].Year %>",
+                            data: [
+                                <%= comp2[1].Total_Current_Assets %>,
+                                <%= comp2[1].Total_Liabilities %>,
+                                <%= comp2[1].Gross_Margin %>,
+                                <%= comp2[1].Share_Values %>,
+                                <%= comp2[1].Number_of_Employees %>,
+                                <%= comp2[1].Cash_and_Cash_Equivalents %>
+                            ]
+                        },
+                            {
+
+                                name: "<%= comp2[2].Year %>",
+                                data: [
+                                    <%= comp2[2].Total_Current_Assets %>,
+                                    <%= comp2[2].Total_Liabilities %>,
+                                    <%= comp2[2].Gross_Margin %>,
+                                    <%= comp2[2].Share_Values %>,
+                                    <%= comp2[2].Number_of_Employees %>,
+                                    <%= comp2[2].Cash_and_Cash_Equivalents %>
+                                ]
+                            }]
+                    }
+            );
+
+            <%}%>
+        })
+        ;
+    </script></head><body><div id=container1 class=chartSize style="min-width: 310px; height: 400px; margin: 0 auto"></div><div id=container2 class=chartSize style="min-width: 310px; height: 400px; margin: 0 auto"></div><script src=http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js></script></body></html>

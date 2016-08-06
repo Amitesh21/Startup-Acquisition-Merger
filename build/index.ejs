@@ -1,0 +1,30 @@
+<!DOCTYPE html><html lang=en><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width, initial-scale=1"><meta name=description><meta name=author><title>239 - Team 24</title><link href=css/bootstrap.min.css rel=stylesheet><link href=css/stylish-portfolio.css rel=stylesheet><link href=font-awesome/css/font-awesome.min.css rel=stylesheet type=text/css><link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic" rel=stylesheet type=text/css></head><body><a id=menu-toggle href=# class="btn btn-dark btn-lg toggle"><i class="fa fa-bars"></i></a><nav id=sidebar-wrapper><ul class=sidebar-nav><a id=menu-close href=# class="btn btn-light btn-lg pull-right toggle"><i class="fa fa-times"></i></a><li class=sidebar-brand><a href=#top onclick='$("#menu-close").click();'>START</a></li><li><a href=#top onclick='$("#menu-close").click();'>Home</a></li><li><a href=#about onclick='$("#menu-close").click();'>About</a></li><li><a href=#predict onclick='$("#menu-close").click();'>Predict</a></li><li><a href=#portfolio onclick='$("#menu-close").click();'>Portfolio</a></li><li><a href=#contact onclick='$("#menu-close").click();'>Contact</a></li></ul></nav><header id=top class=header><div class=text-vertical-center><h1>COMPANY ACQUISITION PREDICTION</h1><br></div></header><section id=about class=about><div class=container><div class=row><div class="col-lg-12 text-center"><h2>Machine learning and data mining often employ the same methods and overlap significantly.</h2><p class=lead>Machine learning focuses on prediction, based on known properties learned from the training data.</p><p class=lead>Data mining focuses on the discovery of previously unknown properties in the data.</p></div></div></div></section><form action=/getStats method=post><section id=predict class=predict><aside class="call-to-action bg-primary"><div class=container><div class=row><div class=col-lg-6><input id=comp1 name=comp1 type=text class=form-control placeholder="Acquiring Company"><br></div><div class=col-lg-5><input id=comp2 name=comp2 type=text class=form-control placeholder="Company to be acquired"></div><br></div><center><input id=sbtBtn class="btn btn-lg btn-light" type=submit value="Start Prediction"></center></div></aside><aside class=callout><div class=text-vertical-center><h1>Data Analytics</h1></div></aside></section></form><section id=portfolio class=portfolio><div class=container><div class=row><div class="col-lg-10 col-lg-offset-1 text-center"><h2></h2><hr class=small><div class=row><div class=col-md-6><div class=portfolio-item><a href=#><img class="img-portfolio img-responsive" src=images/fbwhatsapp.jpg width=300px height=300px></a></div></div><div class=col-md-6><div class=portfolio-item><a href=#><img class="img-portfolio img-responsive" src=images/applebeats.jpg width=300px height=300px></a></div></div><div class=col-md-6><div class=portfolio-item><a href=#><img class="img-portfolio img-responsive" src=images/motorola.jpg width=300px height=300px></a></div></div><div class=col-md-6><div class=portfolio-item><a href=#><img class="img-portfolio img-responsive" src=images/nokia-ms.jpg width=300px height=300px></a></div></div></div></div></div></div></section><footer><section id=contact class=contact><div><div class=row style="background: #E6E610;"><div class="col-lg-12 text-center" style="background: #63ADE6;"><h2><strong>TEAM 24</strong></h2><h4><p>Vrushank Doshi<br>Pranav Dhapke<br>Vijesh Jain<br>Priyanka Bhansali</p></h4><ul class=list-unstyled><li><strong>SAN JOSE STATE UNIVERSITY</strong></li><li>1 Washington Sq, San Jose, CA 95192</li></ul><br><ul class=list-inline><li><a href=#><i class="fa fa-facebook fa-fw fa-3x"></i></a></li><li><a href=#><i class="fa fa-twitter fa-fw fa-3x"></i></a></li><li><a href=#><i class="fa fa-dribbble fa-fw fa-3x"></i></a></li></ul><hr class=small><p class=text-muted>Copyright &copy; Team 24 2015</p></div></div></div></section></footer><script src=js/jquery.js></script><script src=js/bootstrap.min.js></script><script>
+    // Closes the sidebar menu
+    $("#menu-close").click(function (e) {
+        e.preventDefault();
+        $("#sidebar-wrapper").toggleClass("active");
+    });
+
+    // Opens the sidebar menu
+    $("#menu-toggle").click(function (e) {
+        e.preventDefault();
+        $("#sidebar-wrapper").toggleClass("active");
+    });
+
+    // Scrolls to the selected menu item on the page
+    $(function () {
+        $('a[href*=#]:not([href=#])').click(function () {
+            if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') || location.hostname == this.hostname) {
+
+                var target = $(this.hash);
+                target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+                if (target.length) {
+                    $('html,body').animate({
+                        scrollTop: target.offset().top
+                    }, 1000);
+                    return false;
+                }
+            }
+        });
+    });
+</script></body></html>
