@@ -5,11 +5,12 @@ var util = require('util'),
     twit = require('twit'),
     sentimentAnalysis = require('./twitterSentimentAnalysis.js');
 
+//Enter twitter credentials here
 var config = {
-    consumer_key: 'WhYExrBdjaQKyArMvJhxjHiHt',
-    consumer_secret: 'WZ81G6ADuk2RJgGRVMsRZMGgJcUudbC7W2xdhTTx1Miqbhr68y',
-    access_token: '2433226039-ALNzRIdqRR3StA2GZSXyPDuMJMhp5rm604BWktz',
-    access_token_secret: 'nwUXQJsFraf4wd2SB8ls3BKQiB5uAWVEWO1Ea6cLk9ifB'
+    consumer_key: '########',
+    consumer_secret: '########',
+    access_token: '########',
+    access_token_secret: '########'
 };
 
 
