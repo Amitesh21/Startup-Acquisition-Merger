@@ -28,11 +28,11 @@ Market Analysts.
 
 -> Homepage:
 
-<img width="889" alt="screen shot 2016-09-24 at 3 40 35 pm" src="https://cloud.githubusercontent.com/assets/14050490/18811697/99c48800-826d-11e6-8604-84aafe2cc187.png">
+<img width="886" alt="screen shot 2016-09-24 at 3 40 22 pm" src="https://cloud.githubusercontent.com/assets/14050490/18811698/99c4b640-826d-11e6-8279-7a5de61faf35.png">
 
 -> Analyze a company pair [ Microsoft (MSFT) & Nokia (NOK) ]:
 
-<img width="886" alt="screen shot 2016-09-24 at 3 40 22 pm" src="https://cloud.githubusercontent.com/assets/14050490/18811698/99c4b640-826d-11e6-8279-7a5de61faf35.png">
+<img width="889" alt="screen shot 2016-09-24 at 3 40 35 pm" src="https://cloud.githubusercontent.com/assets/14050490/18811697/99c48800-826d-11e6-8604-84aafe2cc187.png">
 
 -> Visualize Stats:
 
