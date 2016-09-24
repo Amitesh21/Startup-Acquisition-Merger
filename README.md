@@ -40,7 +40,7 @@ Market Analysts.
 
 -> Sentiment Analysis:
 
-![alt tag](https://github.com/vijeshjain/Company_Acquisition_Prediction/blob/master/Screenshots/Tweets.PNG)
+<img width="887" alt="screen shot 2016-09-24 at 3 13 05 pm" src="https://cloud.githubusercontent.com/assets/14050490/18811568/0c7c2218-8269-11e6-9c4a-9b6fbbe189c1.png">
 
 -> Merger & Acquisition (M&A) Prediction Results:
 
