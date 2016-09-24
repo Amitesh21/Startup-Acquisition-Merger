@@ -28,15 +28,15 @@ Market Analysts.
 
 -> Homepage:
 
-![alt tag](https://github.com/vijeshjain/Company_Acquisition_Prediction/blob/master/Screenshots/Homepage.PNG)
+<img width="889" alt="screen shot 2016-09-24 at 3 40 35 pm" src="https://cloud.githubusercontent.com/assets/14050490/18811697/99c48800-826d-11e6-8604-84aafe2cc187.png">
 
 -> Analyze a company pair [ Microsoft (MSFT) & Nokia (NOK) ]:
 
-![alt tag](https://github.com/vijeshjain/Company_Acquisition_Prediction/blob/master/Screenshots/Analyze.PNG)
+<img width="886" alt="screen shot 2016-09-24 at 3 40 22 pm" src="https://cloud.githubusercontent.com/assets/14050490/18811698/99c4b640-826d-11e6-8279-7a5de61faf35.png">
 
 -> Visualize Stats:
 
-![alt tag](https://github.com/vijeshjain/Company_Acquisition_Prediction/blob/master/Screenshots/Stats.PNG)
+<img width="886" alt="screen shot 2016-09-24 at 3 41 22 pm" src="https://cloud.githubusercontent.com/assets/14050490/18811699/99c4c5d6-826d-11e6-9e38-cc5967461508.png">
 
 -> Sentiment Analysis:
 
@@ -44,4 +44,4 @@ Market Analysts.
 
 -> Merger & Acquisition (M&A) Prediction Results:
 
-![alt tag](https://github.com/vijeshjain/Company_Acquisition_Prediction/blob/master/Screenshots/Prediction.PNG)
+<img width="887" alt="screen shot 2016-09-24 at 3 44 45 pm" src="https://cloud.githubusercontent.com/assets/14050490/18811700/99cb1e5e-826d-11e6-9fbb-2b4f9dfb1cdf.png">
