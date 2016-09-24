@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="">
+    <link href="/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
+    <link href="css/timeline.css" rel="stylesheet">
+    <link href="css/sb-admin-2.css" rel="stylesheet">
+    <link href="/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <script src="/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="/bower_components/highcharts/highcharts.js"></script>
+    <script src="/bower_components/angular/angular.js"></script>
+    <script type="text/javascript" src="/js/angular-fusioncharts.min.js"></script>
+    <script type="text/javascript" src="/js/fusioncharts.js"></script>
+    <script type="text/javascript" src="/js/themes/fusioncharts.theme.fint.js"></script>
+
+    <script src="/bower_components/highcharts/highcharts-3d.js"></script>
+    <script src="/bower_components/highcharts/highcharts-more.js"></script>
+    <script src="/bower_components/highcharts/modules/solid-gauge.js"></script>
+    <script src="/bower_components/highcharts/modules/exporting.js"></script>
+
+    <link rel="shortcut icon" href="assets/images/gt_favicon.png">
+
+    <script>
+
+
+        var company = angular.module("company1_app", ["ng-fusioncharts"]);
+        company.controller('company1_controller', function ($scope, $http, $window) {
+
+
+            $http({
+                method: 'POST',
+                url: '/getCompanyDetails',
+                data: {"id": "2"}
+            }).then(function (res) {
+                if (res.data.status == "200") {
+                    //alert(comp1[0].Company_Name.toString().toUpperCase());
+                    data = res.data.companyDetails.domain;
+                    $scope.location = res.data.companyDetails.location;
+                    $scope.company1 = res.data.company1Name.toString().toUpperCase();
+                    $scope.company2 = res.data.company2Name.toString().toUpperCase();
+                    $scope.chart = {
+                        "caption": "Revenue Increment in different domains",
+                        "subCaption": res.data.companyDetails.companyName.toString().toUpperCase(),
+                        "xAxisName": "Domain Name",
+                        "yAxisName": "Revenue percent increase",
+                        "data": data
+                    };
+                    $scope.chart2_Create();
+                    chart1_Create(res.data.comp1);
+                    chart3_Create(res.data.comp1, res.data.tweets, res.data.polarity);
+                    $scope.createChart4();
+                } else {
+
+                }
+
+            })
+
+            $scope.chart2_Create = function () {
+                FusionCharts.ready(function () {
+                    var chart2 = new FusionCharts({
+                        "type": "column2d",
+                        "renderAt": "container2",
+                        "width": "452",
+                        "height": "400",
+                        "dataFormat": "json",
+                        "dataSource": {
+                            "chart": {
+                                "caption": $scope.chart.caption,
+                                "subCaption": $scope.chart.subCaption,
+                                "xAxisName": $scope.chart.xAxisName,
+                                "yAxisName": $scope.chart.yAxisName,
+                                "lineThickness": "2",
+                                "paletteColors": "#0075c2",
+                                "baseFontColor": "#333333",
+                                "baseFont": "Helvetica Neue,Arial",
+                                "captionFontSize": "14",
+                                "subcaptionFontSize": "14",
+                                "subcaptionFontBold": "0",
+                                "showBorder": "0",
+                                "bgColor": "#ffffff",
+                                "showShadow": "0",
+                                "canvasBgColor": "#ffffff",
+                                "canvasBorderAlpha": "0",
+                                "divlineAlpha": "100",
+                                "divlineColor": "#999999",
+                                "divlineThickness": "1",
+                                "divLineDashed": "1",
+                                "divLineDashLen": "1",
+                                "divLineGapLen": "1",
+                                "showXAxisLine": "1",
+                                "xAxisLineThickness": "1",
+                                "xAxisLineColor": "#999999",
+                                "showAlternateHGridColor": "0"
+                            },
+                            "data": $scope.chart.data
+                        }
+                    });
+                    chart2.render();
+                })
+            }
+
+
+            $scope.createChart4 = function () {
+
+                FusionCharts.ready(function () {
+                    var locationMap = new FusionCharts({
+                        type: 'maps/usa',
+                        renderAt: 'container4',
+                        width: '452',
+                        height: '400',
+                        dataFormat: 'json',
+                        dataSource: {
+                            "chart": {
+                                "caption": "Company Location",
+                                "subcaption": "",
+                                "borderColor": "#DDDDDDD",
+                                "showLabels": "1",
+
+                                "numberScaleValue": "1,1000,1000",
+                                "numberScaleUnit": "K,M,B",
+                                "numberPrefix": "$",
+                                "entityFillHoverColor": "#d35400",
+                                "entityFillHoverAlpha": "30",
+                                "theme": "fint"
+                            },
+                            "colorrange": {
+                                "gradient": "1",
+                                "startLabel": "",
+                                "endLabel": "",
+                                "code": "#f39c12",
+                                "minvalue": "",
+                                "maxValue": ""
+                            },
+                            "data": $scope.location
+                        }
+                    });
+                    locationMap.render();
+                });
+
+
+            }
+
+
+        });
+
+
+        function chart1_Create(comp1) {
+
+
+            var chart1 = new Highcharts.Chart({
+                chart: {
+                    type: 'column',
+                    renderTo: 'container1'
+                },
+                title: {
+                    text: 'Stock data'
+                },
+                subtitle: {
+                    text: comp1[0].Company_Name.toString().toUpperCase()
+                },
+                xAxis: {
+                    categories: ['Current Assests',
+                        'Liability',
+                        'EBITDA',
+                        'Gross Margin',
+                        'Cash Equivalent']
+                },
+                yAxis: {
+                    min: 0,
+                    title: {
+                        text: 'Stock Data'
+                    },
+                    stackLabels: {
+                        enabled: true,
+                        style: {
+                            fontWeight: 'bold',
+                            color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+                        }
+                    }
+                },
+                legend: {
+                    align: 'right',
+                    x: -30,
+                    verticalAlign: 'top',
+                    y: 25,
+                    floating: true,
+                    backgroundColor: (Highcharts.theme && Highcharts.theme.background2) || 'white',
+                    borderColor: '#CCC',
+                    borderWidth: 1,
+                    shadow: false
+                },
+                tooltip: {
+                    headerFormat: '<b>{point.x}</b><br/>',
+                    pointFormat: '{series.name}: {point.y}<br/>Total: {point.stackTotal}'
+                },
+                plotOptions: {
+                    column: {
+                        stacking: 'normal',
+                        dataLabels: {
+                            enabled: true,
+                            color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',
+                            style: {
+                                textShadow: '0 0 3px black'
+                            }
+                        }
+                    }
+                },
+                series: [{
+                    name: comp1[0].Company_Name.toString().toUpperCase(),
+                    data: [comp1[0].Total_Current_Assets, comp1[0].Total_Liabilities, comp1[0].EBITDA, comp1[0].Gross_Margin, comp1[0].Cash_and_Cash_Equivalents]
+                }]
+            });
+            chart1.render();
+        }
+
+
+        function chart3_Create(comp1, tweets, polarity) {
+
+            var chart3 = new Highcharts.Chart({
+                chart: {
+                    renderTo: 'container3',
+                    backgroundColor: '#EDEEFA',
+                    type: 'pie',
+                    options3d: {
+                        enabled: true,
+                        alpha: 45
+                    }
+                },
+                title: {
+                    text: 'Tweets Polarity'
+                },
+                subtitle: {
+                    text: comp1[0].Company_Name.toString().toUpperCase()
+                },
+                plotOptions: {
+                    pie: {
+                        innerSize: 100,
+                        depth: 45
+                    }
+                },
+                series: [{
+                    name: 'Tweets Polarity',
+                    data: [
+                        ['Neutral', polarity[2]],
+                        ['Negative', polarity[1]],
+                        ['Positive', polarity[0]]
+
+
+                    ]
+                }]
+            });
+            chart3.render();
+        }
+
+    </script>
+
+
+</head>
+
+<body ng-app="company1_app" ng-controller="company1_controller">
+
+<div id="wrapper">
+
+
+    <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/index">Venture Net</a>
+        </div>
+
+
+        <div class="navbar-default sidebar" role="navigation">
+            <div class="sidebar-nav navbar-collapse">
+                <ul class="nav" id="side-menu">
+                    <li>
+                        <a href="/getStats"><i class="fa fa-dashboard fa-fw"></i>Analysis</a>
+                    </li>
+                    <li>
+                        <a href="/stock"><i class="fa fa-dashboard fa-fw"></i> Stock Analysis</a>
+                    </li>
+                    <li>
+                        <a href="/strategy"><i class="fa fa-dashboard fa-fw"></i> Strategy Analysis</a>
+                    </li>
+                    <li>
+                        <a href="/sentiment"><i class="fa fa-dashboard fa-fw"></i> Sentiment Analysis</a>
+                    </li>
+                    <li>
+                        <a href="/company1"><i class="fa fa-dashboard fa-fw"></i> {{company1}} </a>
+                    </li>
+                    <li>
+                        <a href="/company2"><i class="fa fa-dashboard fa-fw"></i> {{company2}} </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div id="page-wrapper">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header"> {{company2}} Analysis</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Stock Data
+                    </div>
+                    <div class="panel-body">
+                        <div id="container1"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Revenue Increment
+                    </div>
+                    <div class="panel-body">
+                        <div id="container2" ng-model="container2"></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Tweets Analysis
+                    </div>
+                    <div class="panel-body">
+                        <div id="container3"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Company Locations
+                    </div>
+                    <div class="panel-body">
+                        <div id="container4" ng-model="container4"></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+    /#page-wrapper
+
+</div>
+
+<script src="js/sb-admin-2.js"></script>
+
+</body>
+
+</html>
+ 
+ 
+ 
+ 
+ 
+ 
+ 

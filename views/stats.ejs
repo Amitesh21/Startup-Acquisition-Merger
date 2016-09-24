@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="">
+
+
+    <!-- Bootstrap Core CSS -->
+    <link href="/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- MetisMenu CSS -->
+    <link href="/bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
+
+    <!-- Timeline CSS -->
+    <link href="css/timeline.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/sb-admin-2.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- jQuery -->
+    <script src="/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="/bower_components/highcharts/highcharts.js"></script>
+    <script src="/bower_components/highcharts/highcharts-3d.js"></script>
+    <script src="/bower_components/highcharts/highcharts-more.js"></script>
+    <script src="/bower_components/highcharts/modules/solid-gauge.js"></script>
+    <script src="/bower_components/highcharts/modules/exporting.js"></script>
+
+    <!--<link rel="shortcut icon" href="assets/images/gt_favicon.png">-->
+    <style type="text/css">
+        .chartSize {
+            height: 100%;
+            width: 50%;
+            position: relative;
+        }
+
+        .scrollit {
+            overflow: scroll;
+            height: 350px;
+        }
+    </style>
+
+
+    <script type="text/javascript">
+            var gaugeOptions = {
+
+                chart: {
+                    backgroundColor: '#EDEEFA',
+                    type: 'solidgauge'
+
+                },
+
+                title: null,
+
+                pane: {
+                    center: ['50%', '85%'],
+                    size: '140%',
+                    startAngle: -90,
+                    endAngle: 90,
+                    background: {
+                        backgroundColor: (Highcharts.theme && Highcharts.theme.background2) || '#EEE',
+                        innerRadius: '60%',
+                        outerRadius: '100%',
+                        shape: 'arc'
+                    }
+                },
+
+                tooltip: {
+                    enabled: false
+                },
+
+                // the value axis
+                yAxis: {
+                    stops: [
+                        [0.1, '#DF5353'], // red
+                        [0.5, '#DDDF0D'], // yellow
+                        [0.9, '#55BF3B']  // green
+                    ],
+                    lineWidth: 0,
+                    minorTickInterval: null,
+                    tickPixelInterval: 400,
+                    tickWidth: 0,
+                    title: {
+                        y: -70
+                    },
+                    labels: {
+                        y: 16
+                    }
+                },
+
+                plotOptions: {
+                    solidgauge: {
+                        dataLabels: {
+                            y: 5,
+                            borderWidth: 0,
+                            useHTML: true
+                        }
+                    }
+                }
+            };
+
+
+        $(function () {
+            <%  if (data.length > 0 && data != 'undefined' && data != null && data) {
+
+            %>
+
+            $('#container4').highcharts(Highcharts.merge(gaugeOptions, {
+                yAxis: {
+                    min: 0,
+                    max: 100,
+                    title: {
+                        text: 'Prediction'
+
+                    }
+                },
+
+                credits: {
+                    enabled: false
+                },
+
+                series: [{
+                    name: 'Prediction',
+                    data: [<%= finalPercent %>],
+                    dataLabels: {
+                        format: '<div style="text-align:center"><span style="font-size:25px;color:' +
+                        ((Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black') + '">{y}</span><br/>' +
+                        '<span style="font-size:12px;color:silver">%</span></div>'
+                    },
+                    tooltip: {
+                        valueSuffix: '%'
+                    }
+                }]
+
+            }));
+
+            var chart1 = new Highcharts.Chart({
+                chart: {
+                    type: 'column',
+                    renderTo: 'container1'
+                },
+                title: {
+                    text: 'Stacked data for the two companies'
+                },
+                xAxis: {
+                    categories: ['Current Assests',
+                        'Liability',
+                        'EBITDA',
+                        'Gross Margin',
+                        'Cash Equivalent']
+                },
+                yAxis: {
+                    min: 0,
+                    title: {
+                        text: 'Stock Data'
+                    },
+                    stackLabels: {
+                        enabled: true,
+                        style: {
+                            fontWeight: 'bold',
+                            color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+                        }
+                    }
+                },
+                legend: {
+                    align: 'right',
+                    x: -30,
+                    verticalAlign: 'top',
+                    y: 25,
+                    floating: true,
+                    backgroundColor: (Highcharts.theme && Highcharts.theme.background2) || 'white',
+                    borderColor: '#CCC',
+                    borderWidth: 1,
+                    shadow: false
+                },
+                tooltip: {
+                    headerFormat: '<b>{point.x}</b><br/>',
+                    pointFormat: '{series.name}: {point.y}<br/>Total: {point.stackTotal}'
+                },
+                plotOptions: {
+                    column: {
+                        stacking: 'normal',
+                        dataLabels: {
+                            enabled: true,
+                            color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',
+                            style: {
+                                textShadow: '0 0 3px black'
+                            }
+                        }
+                    }
+                },
+                series: [{
+                    name: '<%= comp1[0].Company_Name.toString().toUpperCase() %>',
+                    data: [<%= comp1[0].Total_Current_Assets %>, <%= comp1[0].Total_Liabilities %>, <%= comp1[0].EBITDA %>, <%= comp1[0].Gross_Margin %>,<%= comp1[0].Cash_and_Cash_Equivalents %>]
+                }, {
+                    name: '<%= comp2[0].Company_Name.toString().toUpperCase() %>',
+                    data: [<%= comp2[0].Total_Current_Assets %>, <%= comp2[0].Total_Liabilities %>, <%= comp2[0].EBITDA %>, <%= comp2[0].Gross_Margin %>,<%= comp2[0].Cash_and_Cash_Equivalents %>]
+                }]
+            });
+            chart1.render();
+
+            $('#container2').highcharts({
+                chart: {
+                    type: 'column'
+                },
+                title: {
+                    text: 'Stock Analysis'
+                },
+                xAxis: {
+                    type: 'category'
+                },
+
+                legend: {
+                    enabled: false
+                },
+
+                plotOptions: {
+                    series: {
+                        borderWidth: 0,
+                        dataLabels: {
+                            enabled: true
+                        }
+                    }
+                },
+
+                series: [{
+                    name: 'value',
+                    colorByPoint: true,
+                    data: [{
+                        name: 'Current Assets',
+                        y: parseInt(<%= (comp1.assets_combined + comp2.assets_combined)/6 %>),
+                        drilldown: 'assets'
+                    }, {
+                        name: 'Liability',
+                        y: parseInt(<%= (comp1.liability_combined + comp2.liability_combined)/6 %>),
+                        drilldown: 'liability'
+                    }, {
+                        name: 'Gross Margin',
+                        y: parseInt(<%= (comp1.profit_combined + comp2.profit_combined)/6 %>),
+                        drilldown: 'margin'
+                    }, {
+                        name: 'EBITDA',
+                        y: parseInt(<%= (comp1.ebitda_combined + comp2.ebitda_combined)/6 %>),
+                        drilldown: 'ebitda'
+                    }, {
+                        name: 'Cash and Cash Equivalents',
+                        y: parseInt(<%= (comp1.cash_combined + comp2.cash_combined)/6 %>),
+                        drilldown: 'cash'
+                    }
+                    ]
+                }],
+                drilldown: {
+                    series: [{
+                        id: 'assets',
+                        name: 'Current Assets',
+                        data: [{
+                            name: '<%= comp1[0].Company_Name %>',
+                            y: parseInt(<%= comp1.assets_combined/3 %>),
+                            drilldown: 'comp10'
+                        }, {
+                            name: '<%= comp2[0].Company_Name %>',
+                            y: parseInt(<%= comp2.assets_combined/3 %>),
+                            drilldown: 'comp20'
+                        }
+
+                        ]
+                    }, {
+                        id: 'liability',
+                        name: 'Liability',
+                        data: [{
+                            name: '<%= comp1[0].Company_Name %>',
+                            y: parseInt(<%= comp1.liability_combined/3 %>),
+                            drilldown: 'comp11'
+                        }, {
+                            name: '<%= comp2[0].Company_Name %>',
+                            y: parseInt(<%= comp2.liability_combined/3 %>),
+                            drilldown: 'comp21'
+                        }
+
+                        ]
+                    }, {
+                        id: 'margin',
+                        name: 'Gross Margin',
+                        data: [{
+                            name: '<%= comp1[0].Company_Name %>',
+                            y: parseInt(<%= comp1.profit_combined/3 %>),
+                            drilldown: 'comp12'
+                        }, {
+                            name: '<%= comp2[0].Company_Name %>',
+                            y: parseInt(<%= comp2.profit_combined/3 %>),
+                            drilldown: 'comp22'
+                        }
+
+                        ]
+                    }, {
+                        id: 'ebitda',
+                        name: 'EBITDA',
+                        data: [{
+                            name: '<%= comp1[0].Company_Name %>',
+                            y: parseInt(<%= comp1.ebitda_combined/3 %>),
+                            drilldown: 'comp14'
+                        }, {
+                            name: '<%= comp2[0].Company_Name %>',
+                            y: parseInt(<%= comp2.ebitda_combined/3 %>),
+                            drilldown: 'comp24'
+                        }
+
+                        ]
+                    }, {
+                        id: 'cash',
+                        name: 'Cash and Cash Equivalents',
+                        data: [{
+                            name: '<%= comp1[0].Company_Name %>',
+                            y: parseInt(<%= comp1.cash_combined/3 %>),
+                            drilldown: 'comp13'
+                        }, {
+                            name: '<%= comp2[0].Company_Name %>',
+                            y: parseInt(<%= comp2.cash_combined/3 %>),
+                            drilldown: 'comp23'
+                        }
+
+                        ]
+                    },
+                        {
+
+                            id: 'comp10',
+                            data: [
+                                {name: '2012', y: parseInt(<%= comp1[0].Total_Current_Assets %>)},
+                                {name: '2013', y: parseInt(<%= comp1[1].Total_Current_Assets %>)},
+                                {name: '2014', y: parseInt(<%= comp1[2].Total_Current_Assets %>)}
+                            ]
+                        },
+                        {
+
+                            id: 'comp11',
+                            data: [
+                                {name: '2012', y: parseInt(<%= comp1[0].Total_Liabilities %>)},
+                                {name: '2013', y: parseInt(<%= comp1[1].Total_Liabilities %>)},
+                                {name: '2014', y: parseInt(<%= comp1[2].Total_Liabilities %>)}
+                            ]
+                        },
+                        {
+
+                            id: 'comp12',
+                            name: 'Gross Profit',
+                            data: [
+                                {name: '2012', y: parseInt(<%= comp1[0].Gross_Margin %>)},
+                                {name: '2013', y: parseInt(<%= comp1[1].Gross_Margin %>)},
+                                {name: '2014', y: parseInt(<%= comp1[2].Gross_Margin %>)}
+                            ]
+                        },
+                        {
+
+                            id: 'comp13',
+                            data: [
+                                {name: '2012', y: parseInt(<%= comp1[0].EBITDA %>)},
+                                {name: '2013', y: parseInt(<%= comp1[1].EBITDA %>)},
+                                {name: '2014', y: parseInt(<%= comp1[2].EBITDA %>)}
+                            ]
+                        },
+                        {
+
+                            id: 'comp14',
+                            data: [
+                                {name: '2012', y: parseInt(<%= comp1[0].Cash_and_Cash_Equivalents %>)},
+                                {name: '2013', y: parseInt(<%= comp1[1].Cash_and_Cash_Equivalents %>)},
+                                {name: '2014', y: parseInt(<%= comp1[2].Cash_and_Cash_Equivalents %>)}
+                            ]
+                        },
+                        {
+
+                            id: 'comp20',
+                            data: [
+                                {name: '2012', y: parseInt(<%= comp2[0].Total_Current_Assets %>)},
+                                {name: '2013', y: parseInt(<%= comp2[1].Total_Current_Assets %>)},
+                                {name: '2014', y: parseInt(<%= comp2[2].Total_Current_Assets %>)}
+                            ]
+                        },
+                        {
+
+                            id: 'comp21',
+                            data: [
+                                {name: '2012', y: parseInt(<%= comp2[0].Total_Liabilities %>)},
+                                {name: '2013', y: parseInt(<%= comp2[1].Total_Liabilities %>)},
+                                {name: '2014', y: parseInt(<%= comp2[2].Total_Liabilities %>)}
+                            ]
+                        },
+                        {
+
+                            id: 'comp22',
+                            data: [
+                                {name: '2012', y: parseInt(<%= comp2[0].Gross_Profit %>)},
+                                {name: '2013', y: parseInt(<%= comp2[1].Gross_Profit %>)},
+                                {name: '2014', y: parseInt(<%= comp2[2].Gross_Profit %>)}
+                            ]
+                        },
+                        {
+
+                            id: 'comp23',
+                            data: [
+                                {name: '2012', y: parseInt(<%= comp2[0].EBITDA %>)},
+                                {name: '2013', y: parseInt(<%= comp2[1].EBITDA %>)},
+                                {name: '2014', y: parseInt(<%= comp2[2].EBITDA %>)}
+                            ]
+                        },
+                        {
+
+                            id: 'comp24',
+                            data: [
+                                {name: '2012', y: parseInt(<%= comp2[0].Cash_and_Cash_Equivalents %>)},
+                                {name: '2013', y: parseInt(<%= comp2[1].Cash_and_Cash_Equivalents %>)},
+                                {name: '2014', y: parseInt(<%= comp2[2].Cash_and_Cash_Equivalents %>)}
+                            ]
+                        }
+                    ]
+                }
+            });
+
+
+            var chart3 = new Highcharts.Chart({
+                chart: {
+                    renderTo:'container3',
+                    backgroundColor: '#EDEEFA',
+                    type: 'pie',
+                    options3d: {
+                        enabled: true,
+                        alpha: 45
+                    }
+                },
+                title: {
+                    text: 'Tweets Polarity'
+                },
+                subtitle: {
+                    text: "[ <%= comp1[0].Company_Name.toString().toUpperCase() %>" + " + " + "<%= comp2[0].Company_Name.toString().toUpperCase() %> ]"
+                },
+                plotOptions: {
+                    pie: {
+                        innerSize: 100,
+                        depth: 45
+                    }
+                },
+                series: [{
+                    name: 'Tweets Polarity',
+                    data: [
+                        ['Neutral', <%= polarity[2] %>],
+                        ['Negative', <%= polarity[1] %>],
+                        ['Positive', <%= polarity[0] %>]
+
+
+                    ]
+                }]
+            });
+            chart3.render();
+            <%}%>
+
+        });
+
+    </script>
+
+</head>
+
+<body>
+
+<div id="wrapper">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/index">Venture Net</a>
+        </div>
+        <!-- /.navbar-header -->
+
+
+        <div class="navbar-default sidebar" role="navigation">
+            <div class="sidebar-nav navbar-collapse">
+                <ul class="nav" id="side-menu">
+                    <li>
+                        <a href="/getStats"><i class="fa fa-dashboard fa-fw"></i>Analysis</a>
+                    </li>
+                    <li>
+                        <a href="/stock"><i class="fa fa-dashboard fa-fw"></i> Stock Analysis</a>
+                    </li>
+                    <li>
+                        <a href="/strategy"><i class="fa fa-dashboard fa-fw"></i> Strategy Analysis</a>
+                    </li>
+                    <li>
+                        <a href="/sentiment"><i class="fa fa-dashboard fa-fw"></i> Sentiment Analysis</a>
+                    </li>
+                    <li>
+                        <a href="/company1"><i class="fa fa-dashboard fa-fw"></i> <%= comp1[0].Company_Name.toString().toUpperCase() %></a>
+                    </li>
+                    <li>
+                        <a href="/company2"><i class="fa fa-dashboard fa-fw"></i> <%= comp2[0].Company_Name.toString().toUpperCase() %></a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.sidebar-collapse -->
+        </div>
+        <!-- /.navbar-static-side -->
+    </nav>
+
+    <div id="page-wrapper">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">Analysis Overview</h1>
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Stock Data Stacked
+                    </div>
+                    <div class="panel-body">
+                        <div id="container1"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Stock Analysis Drilldown
+                    </div>
+                    <div class="panel-body">
+                        <div id="container2"></div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Sentiment Data
+                    </div>
+                    <div class="panel-body">
+                        <div id="container3"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Acuqisition Prediction %
+                    </div>
+                    <div class="panel-body">
+                        <div id="container4"></div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+
+        <!-- /.row -->
+    </div>
+    <!-- /#page-wrapper -->
+
+</div>
+<!-- /#wrapper -->
+
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+<!-- Metis Menu Plugin JavaScript -->
+<script src="/bower_components/metisMenu/dist/metisMenu.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="js/sb-admin-2.js"></script>
+
+
+</body>
+
+</html>

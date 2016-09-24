@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="">
+
+
+    <!-- Bootstrap Core CSS -->
+    <link href="/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- MetisMenu CSS -->
+    <link href="/bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
+
+    <!-- Timeline CSS -->
+    <link href="css/timeline.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/sb-admin-2.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- jQuery -->
+    <script src="/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="http://code.highcharts.com/highcharts.js"></script>
+
+    <style type="text/css">
+        .borderShadow {
+            box-shadow: 5px 5px 22px 0px #2C3E50;
+        }
+
+    </style>
+
+    <script src="http://code.highcharts.com/highcharts-3d.js"></script>
+    <script src="http://code.highcharts.com/highcharts-more.js"></script>
+    <script src="http://code.highcharts.com/modules/solid-gauge.js"></script>
+    <script src="http://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://www.amcharts.com/lib/3/amcharts.js"></script>
+    <script src="https://www.amcharts.com/lib/3/serial.js"></script>
+    <script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
+
+
+    <!--<link rel="shortcut icon" href="assets/images/gt_favicon.png">-->
+    <style type="text/css">
+        #container3{
+            width		: 100%;
+            height		: 400px;
+        }
+
+        #container2{
+            width		: 100%;
+            height		: 400px;
+        }
+
+        .amcharts-graph-g2 .amcharts-graph-stroke {
+            stroke-dasharray: 3px 3px;
+            stroke-linejoin: round;
+            stroke-linecap: round;
+            -webkit-animation: am-moving-dashes 1s linear infinite;
+            animation: am-moving-dashes 1s linear infinite;
+        }
+
+        @-webkit-keyframes am-moving-dashes {
+            100% {
+                stroke-dashoffset: -31px;
+            }
+        }
+        @keyframes am-moving-dashes {
+            100% {
+                stroke-dashoffset: -31px;
+            }
+        }
+
+
+        .lastBullet {
+            -webkit-animation: am-pulsating 1s ease-out infinite;
+            animation: am-pulsating 1s ease-out infinite;
+        }
+        @-webkit-keyframes am-pulsating {
+            0% {
+                stroke-opacity: 1;
+                stroke-width: 0px;
+            }
+            100% {
+                stroke-opacity: 0;
+                stroke-width: 50px;
+            }
+        }
+        @keyframes am-pulsating {
+            0% {
+                stroke-opacity: 1;
+                stroke-width: 0px;
+            }
+            100% {
+                stroke-opacity: 0;
+                stroke-width: 50px;
+            }
+        }
+
+        .amcharts-graph-column-front {
+            -webkit-transition: all .3s .3s ease-out;
+            transition: all .3s .3s ease-out;
+        }
+        .amcharts-graph-column-front:hover {
+            fill: #496375;
+            stroke: #496375;
+            -webkit-transition: all .3s ease-out;
+            transition: all .3s ease-out;
+        }
+
+        .amcharts-graph-g3 {
+            stroke-linejoin: round;
+            stroke-linecap: round;
+            stroke-dasharray: 500%;
+            stroke-dasharray: 0 \0/;    /* fixes IE prob */
+            stroke-dashoffset: 0 \0/;   /* fixes IE prob */
+            -webkit-animation: am-draw 40s;
+            animation: am-draw 40s;
+        }
+        @-webkit-keyframes am-draw {
+            0% {
+                stroke-dashoffset: 500%;
+            }
+            100% {
+                stroke-dashoffset: 0%;
+            }
+        }
+        @keyframes am-draw {
+            0% {
+                stroke-dashoffset: 500%;
+            }
+            100% {
+                stroke-dashoffset: 0%;
+            }
+        }
+        /* OVERWRITE OUR MAIN STYLE */
+
+        #container1 {
+            width: 100%;
+            height: 400px;
+        }
+
+    </style>
+
+
+    <script type="text/javascript">
+
+        console.log('<%=keys[0]%>');
+        var gaugeOptions = {
+
+            chart: {
+                backgroundColor: '#EDEEFA',
+                type: 'solidgauge'
+
+            },
+
+            title: null,
+
+            pane: {
+                center: ['50%', '85%'],
+                size: '140%',
+                startAngle: -90,
+                endAngle: 90,
+                background: {
+                    backgroundColor: (Highcharts.theme && Highcharts.theme.background2) || '#EEE',
+                    innerRadius: '60%',
+                    outerRadius: '100%',
+                    shape: 'arc'
+                }
+            },
+
+            tooltip: {
+                enabled: false
+            },
+
+            // the value axis
+            yAxis: {
+                stops: [
+                    [0.1, '#DF5353'], // red
+                    [0.5, '#DDDF0D'], // yellow
+                    [0.9, '#55BF3B']  // green
+                ],
+                lineWidth: 0,
+                minorTickInterval: null,
+                tickPixelInterval: 400,
+                tickWidth: 0,
+                title: {
+                    y: -70
+                },
+                labels: {
+                    y: 16
+                }
+            },
+
+            plotOptions: {
+                solidgauge: {
+                    dataLabels: {
+                        y: 5,
+                        borderWidth: 0,
+                        useHTML: true
+                    }
+                }
+            }
+        };
+        var result = parseInt('<%= result %>');
+
+        $(function () {
+            $('#container4').highcharts(Highcharts.merge(gaugeOptions, {
+                yAxis: {
+                    min: 0,
+                    max: 100,
+                    title: {
+                        text: 'M&A Prediction'
+
+                    }
+                },
+
+                credits: {
+                    enabled: false
+                },
+
+                series: [{
+                    name: 'M&A Prediction',
+                    data: [result],
+                    dataLabels: {
+                        format: '<div style="text-align:center"><span style="font-size:25px;color:' +
+                        ((Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black') + '">{y}</span><br/>' +
+                        '<span style="font-size:12px;color:silver">%</span></div>'
+                    },
+                    tooltip: {
+                        valueSuffix: '%'
+                    }
+                }]
+
+            }));
+        });
+
+        var dataProvider1 = [];
+        <%  for(var i=0;i<techsNames.length;i++){%>
+        dataProvider1.push({
+            "techs": '<%= techsNames[i] %>',
+            "company1": parseInt(<%= techsCounts[i][0] %>),
+            "company2": parseInt(<%= techsCounts[i][1] %>)
+        });
+        <%}%>
+
+        var chartData3 = [
+            {
+                "techs": "Java",
+                "company1": 227,
+                "company2": 408
+            },
+            {
+                "techs": "NodeJS",
+                "company1": 371,
+                "company2": 482
+            },
+            {
+                "techs": "Python",
+                "company1": 433,
+                "company2": 562
+            },
+            {
+                "techs": "JavaScript",
+                "company1": 345,
+                "company2": 379
+            },
+            {
+                "techs": "AngularJS",
+                "company1": 480,
+                "company2": 501
+            },
+            {
+                "techs": "MongoDB",
+                "company1": 386,
+                "company2": 443
+            },
+            {
+                "techs": "BigDATA",
+                "company1": 348,
+                "company2": 405
+            },
+            {
+                "techs": "R",
+                "company1": 238,
+                "company2": 309
+            },
+            {
+                "techs": "Unix"
+            },
+            {
+                "techs": "Perl"
+            }
+        ];
+        var chart = AmCharts.makeChart("container2", {
+            type: "serial",
+            dataProvider: chartData3,
+
+            addClassNames: true,
+            startDuration: 1,
+            color: "#000000",
+            marginLeft: 0,
+
+            categoryField: "techs",
+            categoryAxis: {
+                autoGridCount: false,
+                gridCount: 50,
+                gridAlpha: 0.1,
+                gridColor: "#000000",
+                axisColor: "#555555"
+            },
+
+            valueAxes: [{
+                id: "a1",
+                title: "companys",
+                gridAlpha: 0,
+                axisAlpha: 0
+            },{
+                id: "a2",
+                position: "right",
+                gridAlpha: 0,
+                axisAlpha: 0,
+                labelsEnabled: false
+            }],
+            graphs: [{
+                id: "g1",
+                valueField:  "company1",
+                title:  "company1",
+                type:  "column",
+                fillAlphas:  0.9,
+                valueAxis:  "a1",
+                balloonText:  "[[value]]",
+                legendValueText:  "[[value]]",
+                legendPeriodValueText:  "total: [[value.sum]]",
+                lineColor:  "#263138",
+                alphaField:  "alpha"
+            },{
+                id: "g3",
+                title: "company2",
+                valueField: "company2",
+                type: "line",
+                valueAxis: "a3",
+                lineColor: "#ff5755",
+                balloonText: "[[value]]",
+                lineThickness: 1,
+                legendValueText: "[[value]]",
+                bullet: "square",
+                bulletBorderColor: "#ff5755",
+                bulletBorderThickness: 1,
+                bulletBorderAlpha: 1,
+                dashLengthField: "dashLength",
+                animationPlayed: true
+            }],
+
+            chartCursor: {
+                zoomable: false,
+                categoryBalloonDateFormat: "DD",
+                cursorAlpha: 0,
+                valueBalloonsEnabled: false
+            },
+            legend: {
+                bulletType: "round",
+                equalWidths: false,
+                valueWidth: 120,
+                useGraphSettings: true,
+                color: "#000000"
+            }
+        });
+
+        var dataProvider3 = [];
+        <%  for(var i=0;i<keys.length;i++){%>
+        dataProvider3.push({
+            "cat": "'<%= techsNames[i] %>'",
+            "company1": parseInt(<%= techsCounts[i][0] %>),
+            "company2": parseInt(<%= techsCounts[i][1] %>)
+        });
+        <%}%>
+
+        var chart3 = AmCharts.makeChart("container3", {
+            "type": "serial",
+            "theme": "light",
+            "precision": 0,
+            "valueAxes": [{
+                "id": "v1",
+                "title": "Values",
+                "position": "left",
+                "autoGridCount": false,
+                "labelFunction": function(value) {
+                    return Math.round(value);
+                }
+            }, {
+                "id": "v2",
+                "title": "Market Days",
+                "gridAlpha": 0,
+                "position": "right",
+                "autoGridCount": false
+            }],
+            "graphs": [{
+                "id": "g3",
+                "valueAxis": "v1",
+                "lineColor": "#e1ede9",
+                "fillColors": "#e1ede9",
+                "fillAlphas": 1,
+                "type": "column",
+                "title": "cat",
+                "valueField": "company1",
+                "clustered": false,
+                "columnWidth": 0.5,
+                "legendValueText": "$[[value]]M",
+                "balloonText": "[[title]]<br/><b style='font-size: 130%'>$[[value]]M</b>"
+            }, {
+                "id": "g4",
+                "valueAxis": "v1",
+                "lineColor": "#62cf73",
+                "fillColors": "#62cf73",
+                "fillAlphas": 1,
+                "type": "column",
+                "title": "cat",
+                "valueField": "company2",
+                "clustered": false,
+                "columnWidth": 0.3,
+                "legendValueText": "$[[value]]",
+                "balloonText": "[[title]]<br/><b style='font-size: 130%'>[[value]]</b>"
+            }],
+            "chartCursor": {
+                "pan": true,
+                "valueLineEnabled": true,
+                "valueLineBalloonEnabled": true,
+                "cursorAlpha": 0,
+                "valueLineAlpha": 0.2
+            },
+            "categoryField": "cat",
+            "categoryAxis": {
+                "dashLength": 1,
+                "minorGridEnabled": true
+            },
+            "legend": {
+                "useGraphSettings": true,
+                "position": "top"
+            },
+            "balloon": {
+                "borderThickness": 1,
+                "shadowAlpha": 0
+            },
+            "export": {
+                "enabled": true
+            },
+            "dataProvider": dataProvider3
+        });
+
+        var dataProvider2 = [];
+        <%  for(var i=0;i<keys.length;i++){%>
+            dataProvider2.push({
+                "cat": "'<%= keys[i] %>'",
+                "company2": parseInt(<%= data[i] %>)
+            });
+        <%}%>
+
+        var chart2 = AmCharts.makeChart("container1", {
+            "type": "serial",
+            "theme": "light",
+            "precision": 0,
+            "valueAxes": [{
+                "id": "v1",
+                "title": "Values",
+                "position": "left",
+                "autoGridCount": false,
+                "labelFunction": function(value) {
+                    return Math.round(value);
+                }
+            }, {
+                "id": "v2",
+                "title": "Market Days",
+                "gridAlpha": 0,
+                "position": "right",
+                "autoGridCount": false
+            }],
+            "graphs": [{
+                "id": "g4",
+                "valueAxis": "v1",
+                "lineColor": "#62cf73",
+                "fillColors": "#62cf73",
+                "fillAlphas": 1,
+                "type": "column",
+                "title": "Frequency",
+                "valueField": "company2",
+                "clustered": false,
+                "columnWidth": 0.3,
+                "legendValueText": "$[[value]]",
+                "balloonText": "[[title]]<br/><b style='font-size: 130%'>[[value]]</b>"
+            }],
+            "chartCursor": {
+                "pan": true,
+                "valueLineEnabled": true,
+                "valueLineBalloonEnabled": true,
+                "cursorAlpha": 0,
+                "valueLineAlpha": 0.2
+            },
+            "categoryField": "cat",
+            "categoryAxis": {
+                "dashLength": 1,
+                "minorGridEnabled": true
+            },
+            "legend": {
+                "useGraphSettings": true,
+                "position": "top"
+            },
+            "balloon": {
+                "borderThickness": 1,
+                "shadowAlpha": 0
+            },
+            "export": {
+                "enabled": true
+            },
+            "dataProvider": dataProvider2
+        });
+
+        function zoomChart(){
+            chart2.zoomToIndexes(1, chartData.length - 2);
+        }
+
+    </script>
+
+</head>
+
+<body>
+
+<div id="wrapper">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/index">Venture Net</a>
+        </div>
+        <!-- /.navbar-header -->
+
+
+        <div class="navbar-default sidebar" role="navigation">
+            <div class="sidebar-nav navbar-collapse">
+                <ul class="nav" id="side-menu">
+                    <li>
+                        <a href="/getStats"><i class="fa fa-dashboard fa-fw"></i>Analysis</a>
+                    </li>
+                    <li>
+                        <a href="/stock"><i class="fa fa-dashboard fa-fw"></i> Stock Analysis</a>
+                    </li>
+                    <li>
+                        <a href="/strategy"><i class="fa fa-dashboard fa-fw"></i> Strategy Analysis</a>
+                    </li>
+                    <li>
+                        <a href="/sentiment"><i class="fa fa-dashboard fa-fw"></i> Sentiment Analysis</a>
+                    </li>
+                    <li>
+                        <a href="/company1"><i class="fa fa-dashboard fa-fw"></i> <%= comp1.toUpperCase() %></a>
+                    </li>
+                    <li>
+                        <a href="/company2"><i class="fa fa-dashboard fa-fw"></i> <%= comp2.toUpperCase() %></a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.sidebar-collapse -->
+        </div>
+        <!-- /.navbar-static-side -->
+    </nav>
+
+    <div id="page-wrapper">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">Strategy Overview</h1>
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Apriori Result
+                    </div>
+                    <div class="panel-body">
+                        <div id="container1"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Technology Comparison
+                    </div>
+                    <div class="panel-body">
+                        <div id="container2"></div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="panel panel-default">
+
+                    <div class="panel-body">
+                        <div></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Prediction based on Strategic importance
+                    </div>
+                    <div class="panel-body">
+                        <div id="container4"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="panel panel-default">
+
+                    <div class="panel-body">
+                        <div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- /.row -->
+    </div>
+    <!-- /#page-wrapper -->
+
+</div>
+<!-- /#wrapper -->
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+<!-- Metis Menu Plugin JavaScript -->
+<script src="/bower_components/metisMenu/dist/metisMenu.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="js/sb-admin-2.js"></script>
+
+
+</body>
+
+</html>

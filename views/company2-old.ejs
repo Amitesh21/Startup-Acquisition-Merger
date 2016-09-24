@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="">
+
+
+    <!-- Bootstrap Core CSS -->
+    <link href="/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- MetisMenu CSS -->
+    <link href="/bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
+
+    <!-- Timeline CSS -->
+    <link href="css/timeline.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/sb-admin-2.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <script src="http://code.highcharts.com/highcharts.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#show").click(function () {
+                $("p").show();
+                $(container4).css('border', "3px solid #000000");
+                $(container4).css('width', "450px");
+                $(container4).css('height', "250px");
+            });
+        });
+    </script>
+
+    <style type="text/css">
+        .borderShadow {
+            box-shadow: 5px 5px 22px 0px #2C3E50;
+        }
+
+    </style>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
+    <script src="http://code.highcharts.com/highcharts-3d.js"></script>
+    <script src="http://code.highcharts.com/highcharts-more.js"></script>
+    <script src="http://code.highcharts.com/modules/solid-gauge.js"></script>
+    <script src="http://code.highcharts.com/modules/exporting.js"></script>
+
+    <!--<link rel="shortcut icon" href="assets/images/gt_favicon.png">-->
+    <style type="text/css">
+        .chartSize {
+            height: 100%;
+            width: 50%;
+            position: relative;
+        }
+
+        .scrollit {
+            overflow: scroll;
+            height: 350px;
+        }
+    </style>
+
+
+    <script type="text/javascript">
+        function generateMeterResults() {
+            var gaugeOptions = {
+
+                chart: {
+                    backgroundColor: '#EDEEFA',
+                    type: 'solidgauge'
+
+                },
+
+                title: null,
+
+                pane: {
+                    center: ['50%', '85%'],
+                    size: '140%',
+                    startAngle: -90,
+                    endAngle: 90,
+                    background: {
+                        backgroundColor: (Highcharts.theme && Highcharts.theme.background2) || '#EEE',
+                        innerRadius: '60%',
+                        outerRadius: '100%',
+                        shape: 'arc'
+                    }
+                },
+
+                tooltip: {
+                    enabled: false
+                },
+
+                // the value axis
+                yAxis: {
+                    stops: [
+                        [0.1, '#DF5353'], // red
+                        [0.5, '#DDDF0D'], // yellow
+                        [0.9, '#55BF3B']  // green
+                    ],
+                    lineWidth: 0,
+                    minorTickInterval: null,
+                    tickPixelInterval: 400,
+                    tickWidth: 0,
+                    title: {
+                        y: -70
+                    },
+                    labels: {
+                        y: 16
+                    }
+                },
+
+                plotOptions: {
+                    solidgauge: {
+                        dataLabels: {
+                            y: 5,
+                            borderWidth: 0,
+                            useHTML: true
+                        }
+                    }
+                }
+            };
+
+            // The speed gauge
+            $('#container-speed').highcharts(Highcharts.merge(gaugeOptions, {
+                yAxis: {
+                    min: 0,
+                    max: 100,
+                    title: {
+                        text: 'M&A Prediction'
+
+                    }
+                },
+
+                credits: {
+                    enabled: false
+                },
+
+                series: [{
+                    name: 'M&A Prediction',
+                    data: [<%= finalPercent %>],
+                    dataLabels: {
+                        format: '<div style="text-align:center"><span style="font-size:25px;color:' +
+                        ((Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black') + '">{y}</span><br/>' +
+                        '<span style="font-size:12px;color:silver">%</span></div>'
+                    },
+                    tooltip: {
+                        valueSuffix: '%'
+                    }
+                }]
+
+            }));
+        }
+
+
+        $(function () {
+            <%  if (data.length > 0 && data != 'undefined' && data != null && data) {
+
+                console.log(JSON.stringify(data));
+            %>
+
+            var chart1 = new Highcharts.Chart({
+                chart: {
+                    renderTo: 'container1',
+                    backgroundColor: '#EDEEFA',
+                    type: 'column'
+                },
+                title: {
+                    text: 'Stock Symbol: <%= comp1[0].Company_Name.toString().toUpperCase() %>'
+                },
+                /*  subtitle: {
+                 text: 'Source: WorldClimate.com'
+                 }, */
+
+                xAxis: {
+                    categories: [
+                        'Current Assests',
+                        'Liability',
+                        'Gross Profit',
+                        'Total Revenue',
+                        'EBITDA',
+                        'Gross Margin',
+                        'Cash Equivalent'
+
+                    ],
+                    crosshair: true
+                }
+                ,
+                yAxis: {
+                    min: 0,
+                    title: {
+                        text: 'Amount (billions)'
+                    }
+                }
+                ,
+                tooltip: {
+                    headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                    pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                    '<td style="padding:0"><b>{point.y:.1f} bn</b></td></tr>',
+                    footerFormat: '</table>',
+                    shared: true,
+                    useHTML: true
+                }
+                ,
+                plotOptions: {
+                    column: {
+                        pointPadding: 0,
+                        borderWidth: 0
+                    }
+                }
+                ,
+                series: [{
+
+                    name: "<%= comp1[0].Year %>",
+                    data: [
+                        <%= comp1[0].Total_Current_Assets %>,
+                        <%= comp1[0].Total_Liabilities %>,
+                        <%= comp1[0].Gross_Margin %>,
+                        <%= comp1[0].total_revenue %>,
+                        <%= comp1[0].EBITDA %>,
+                        <%= comp1[0].Cash_and_Cash_Equivalents %>
+                    ]
+
+                }, {
+
+                    name: "<%= comp1[1].Year %>",
+                    data: [
+                        <%= comp1[1].Total_Current_Assets %>,
+                        <%= comp1[1].Total_Liabilities %>,
+                        <%= comp1[1].Gross_Margin %>,
+                        <%= comp1[1].total_revenue %>,
+                        <%= comp1[1].EBITDA %>,
+                        <%= comp1[1].Cash_and_Cash_Equivalents %>
+                    ]
+                },
+                    {
+
+                        name: "<%= comp1[2].Year %>",
+                        data: [
+                            <%= comp1[2].Total_Current_Assets %>,
+                            <%= comp1[2].Total_Liabilities %>,
+                            <%= comp1[2].Gross_Margin %>,
+                            <%= comp1[2].total_revenue %>,
+                            <%= comp1[2].EBITDA %>,
+                            <%= comp1[2].Cash_and_Cash_Equivalents %>
+                        ]
+                    }]
+            });
+            chart1.render();
+
+            var chart2 = new Highcharts.Chart({
+                chart: {
+                    renderTo:'container2',
+                    backgroundColor: '#EDEEFA',
+                    type: 'column'
+                },
+                title: {
+                    text: 'Stock Symbol: <%= comp2[0].Company_Name.toString().toUpperCase() %>'
+                },
+                /*  subtitle: {
+                 text: 'Source: WorldClimate.com'
+                 }, */
+
+                xAxis: {
+                    categories: [
+                        'Current Assests',
+                        'Liability',
+                        'Gross Profit',
+                        'Total Revenue',
+                        'EBITDA',
+                        'Gross Margin',
+                        'Cash Equivalent'
+
+                    ],
+                    crosshair: true
+                }
+                ,
+                yAxis: {
+                    min: 0,
+                    title: {
+                        text: 'Amount (billions)'
+                    }
+                }
+                ,
+                tooltip: {
+                    headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                    pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                    '<td style="padding:0"><b>{point.y:.1f} bn</b></td></tr>',
+                    footerFormat: '</table>',
+                    shared: true,
+                    useHTML: true
+                }
+                ,
+                plotOptions: {
+                    column: {
+                        pointPadding: 0,
+                        borderWidth: 0
+                    }
+                }
+                ,
+                series: [{
+
+                    name: "<%= comp2[0].Year %>",
+                    data: [
+                        <%= comp2[0].Total_Current_Assets %>,
+                        <%= comp2[0].Total_Liabilities %>,
+                        <%= comp2[0].Gross_Margin %>,
+                        <%= comp2[0].total_revenue %>,
+                        <%= comp2[0].EBITDA %>,
+                        <%= comp2[0].Cash_and_Cash_Equivalents %>
+                    ]
+
+                }, {
+
+                    name: "<%= comp2[1].Year %>",
+                    data: [
+                        <%= comp2[1].Total_Current_Assets %>,
+                        <%= comp2[1].Total_Liabilities %>,
+                        <%= comp2[1].Gross_Margin %>,
+                        <%= comp2[1].total_revenue %>,
+                        <%= comp2[1].EBITDA %>,
+                        <%= comp2[1].Cash_and_Cash_Equivalents %>
+                    ]
+                },
+                    {
+
+                        name: "<%= comp2[2].Year %>",
+                        data: [
+                            <%= comp2[2].Total_Current_Assets %>,
+                            <%= comp2[2].Total_Liabilities %>,
+                            <%= comp2[2].Gross_Margin %>,
+                            <%= comp2[2].total_revenue %>,
+                            <%= comp2[2].EBITDA %>,
+                            <%= comp2[2].Cash_and_Cash_Equivalents %>
+                        ]
+                    }]
+            });
+            chart2.render();
+
+            var chart3 = new Highcharts.Chart({
+                chart: {
+                    renderTo:'container3',
+                    backgroundColor: '#EDEEFA',
+                    type: 'pie',
+                    options3d: {
+                        enabled: true,
+                        alpha: 45
+                    }
+                },
+                title: {
+                    text: 'Tweets Polarity'
+                },
+                subtitle: {
+                    text: "[ <%= comp1[0].Company_Name.toString().toUpperCase() %>" + " + " + "<%= comp2[0].Company_Name.toString().toUpperCase() %> ]"
+                },
+                plotOptions: {
+                    pie: {
+                        innerSize: 100,
+                        depth: 45
+                    }
+                },
+                series: [{
+                    name: 'Tweets Polarity',
+                    data: [
+                        ['Neutral', <%= polarity[2] %>],
+                        ['Negative', <%= polarity[1] %>],
+                        ['Positive', <%= polarity[0] %>]
+
+
+                    ]
+                }]
+            });
+            chart3.render();
+            <%}%>
+
+        });
+
+    </script>
+
+</head>
+
+<body>
+
+<div id="wrapper">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/index">SB Admin v2.0</a>
+        </div>
+        <!-- /.navbar-header -->
+
+        <ul class="nav navbar-top-links navbar-right">
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    <i class="fa fa-envelope fa-fw"></i>  <i class="fa fa-caret-down"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-messages">
+                    <li>
+                        <a href="#">
+                            <div>
+                                <strong>John Smith</strong>
+                                    <span class="pull-right text-muted">
+                                        <em>Yesterday</em>
+                                    </span>
+                            </div>
+                            <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend...</div>
+                        </a>
+                    </li>
+                    <li class="divider"></li>
+                    <li>
+                        <a href="#">
+                            <div>
+                                <strong>John Smith</strong>
+                                    <span class="pull-right text-muted">
+                                        <em>Yesterday</em>
+                                    </span>
+                            </div>
+                            <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend...</div>
+                        </a>
+                    </li>
+                    <li class="divider"></li>
+                    <li>
+                        <a href="#">
+                            <div>
+                                <strong>John Smith</strong>
+                                    <span class="pull-right text-muted">
+                                        <em>Yesterday</em>
+                                    </span>
+                            </div>
+                            <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend...</div>
+                        </a>
+                    </li>
+                    <li class="divider"></li>
+                    <li>
+                        <a class="text-center" href="#">
+                            <strong>Read All Messages</strong>
+                            <i class="fa fa-angle-right"></i>
+                        </a>
+                    </li>
+                </ul>
+                <!-- /.dropdown-messages -->
+            </li>
+            <!-- /.dropdown -->
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    <i class="fa fa-tasks fa-fw"></i>  <i class="fa fa-caret-down"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-tasks">
+                    <li>
+                        <a href="#">
+                            <div>
+                                <p>
+                                    <strong>Task 1</strong>
+                                    <span class="pull-right text-muted">40% Complete</span>
+                                </p>
+                                <div class="progress progress-striped active">
+                                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
+                                        <span class="sr-only">40% Complete (success)</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="divider"></li>
+                    <li>
+                        <a href="#">
+                            <div>
+                                <p>
+                                    <strong>Task 2</strong>
+                                    <span class="pull-right text-muted">20% Complete</span>
+                                </p>
+                                <div class="progress progress-striped active">
+                                    <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%">
+                                        <span class="sr-only">20% Complete</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="divider"></li>
+                    <li>
+                        <a href="#">
+                            <div>
+                                <p>
+                                    <strong>Task 3</strong>
+                                    <span class="pull-right text-muted">60% Complete</span>
+                                </p>
+                                <div class="progress progress-striped active">
+                                    <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
+                                        <span class="sr-only">60% Complete (warning)</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="divider"></li>
+                    <li>
+                        <a href="#">
+                            <div>
+                                <p>
+                                    <strong>Task 4</strong>
+                                    <span class="pull-right text-muted">80% Complete</span>
+                                </p>
+                                <div class="progress progress-striped active">
+                                    <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%">
+                                        <span class="sr-only">80% Complete (danger)</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="divider"></li>
+                    <li>
+                        <a class="text-center" href="#">
+                            <strong>See All Tasks</strong>
+                            <i class="fa fa-angle-right"></i>
+                        </a>
+                    </li>
+                </ul>
+                <!-- /.dropdown-tasks -->
+            </li>
+            <!-- /.dropdown -->
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    <i class="fa fa-bell fa-fw"></i>  <i class="fa fa-caret-down"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-alerts">
+                    <li>
+                        <a href="#">
+                            <div>
+                                <i class="fa fa-comment fa-fw"></i> New Comment
+                                <span class="pull-right text-muted small">4 minutes ago</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="divider"></li>
+                    <li>
+                        <a href="#">
+                            <div>
+                                <i class="fa fa-twitter fa-fw"></i> 3 New Followers
+                                <span class="pull-right text-muted small">12 minutes ago</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="divider"></li>
+                    <li>
+                        <a href="#">
+                            <div>
+                                <i class="fa fa-envelope fa-fw"></i> Message Sent
+                                <span class="pull-right text-muted small">4 minutes ago</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="divider"></li>
+                    <li>
+                        <a href="#">
+                            <div>
+                                <i class="fa fa-tasks fa-fw"></i> New Task
+                                <span class="pull-right text-muted small">4 minutes ago</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="divider"></li>
+                    <li>
+                        <a href="#">
+                            <div>
+                                <i class="fa fa-upload fa-fw"></i> Server Rebooted
+                                <span class="pull-right text-muted small">4 minutes ago</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="divider"></li>
+                    <li>
+                        <a class="text-center" href="#">
+                            <strong>See All Alerts</strong>
+                            <i class="fa fa-angle-right"></i>
+                        </a>
+                    </li>
+                </ul>
+                <!-- /.dropdown-alerts -->
+            </li>
+            <!-- /.dropdown -->
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-user">
+                    <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                    </li>
+                    <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                    </li>
+                    <li class="divider"></li>
+                    <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                    </li>
+                </ul>
+                <!-- /.dropdown-user -->
+            </li>
+            <!-- /.dropdown -->
+        </ul>
+        <!-- /.navbar-top-links -->
+
+        <div class="navbar-default sidebar" role="navigation">
+            <div class="sidebar-nav navbar-collapse">
+                <ul class="nav" id="side-menu">
+                    <li class="sidebar-search">
+                        <div class="input-group custom-search-form">
+                            <input type="text" class="form-control" placeholder="Search...">
+                                <span class="input-group-btn">
+                                <button class="btn btn-default" type="button">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </span>
+                        </div>
+                        <!-- /input-group -->
+                    </li>
+                    <li>
+                        <a href="/getStats"><i class="fa fa-dashboard fa-fw"></i>Analysis</a>
+                    </li>
+                    <li>
+                        <a href="/stock"><i class="fa fa-dashboard fa-fw"></i> Stock Analysis</a>
+                    </li>
+                    <li>
+                        <a href="/strategy"><i class="fa fa-dashboard fa-fw"></i> Strategy Analysis</a>
+                    </li>
+                    <li>
+                        <a href="/sentiment"><i class="fa fa-dashboard fa-fw"></i> Sentiment Analysis</a>
+                    </li>
+                    <li>
+                        <a href="/company1"><i class="fa fa-dashboard fa-fw"></i> Company 1</a>
+                    </li>
+                    <li>
+                        <a href="/company2"><i class="fa fa-dashboard fa-fw"></i> Company 2</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.sidebar-collapse -->
+        </div>
+        <!-- /.navbar-static-side -->
+    </nav>
+
+    <div id="page-wrapper">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">Company 2</h1>
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Default Panel
+                    </div>
+                    <div class="panel-body">
+                        <div id="container1"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Default Panel
+                    </div>
+                    <div class="panel-body">
+                        <div id="container2"></div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Default Panel
+                    </div>
+                    <div class="panel-body">
+                        <div id="container3"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Default Panel
+                    </div>
+                    <div class="panel-body">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum tincidunt est vitae ultrices accumsan. Aliquam ornare lacus adipiscing, posuere lectus et, fringilla augue.</p>
+                    </div>
+                </div>
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+
+        <!-- /.row -->
+    </div>
+    <!-- /#page-wrapper -->
+
+</div>
+<!-- /#wrapper -->
+
+<!-- jQuery -->
+<script src="/bower_components/jquery/dist/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+<!-- Metis Menu Plugin JavaScript -->
+<script src="/bower_components/metisMenu/dist/metisMenu.min.js"></script>
+
+<!-- Morris Charts JavaScript -->
+<script src="js/raphael-min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="js/sb-admin-2.js"></script>
+
+
+</body>
+
+</html>

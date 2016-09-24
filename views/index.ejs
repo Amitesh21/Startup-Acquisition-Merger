@@ -1,253 +1,172 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 
+    <title>Venture Net ! We help and guide you to acquire or merge</title>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title>239 - Team 24</title>
-
-    <!-- Bootstrap Core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Custom CSS -->
-    <link href="css/stylish-portfolio.css" rel="stylesheet">
-
-    <!-- Custom Fonts -->
-    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic"
-          rel="stylesheet" type="text/css">
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
+    <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link href="http://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
+    <script src="/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="css/index.css">
 </head>
+<body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
 
-<body>
-
-<!-- Navigation -->
-<a id="menu-toggle" href="#" class="btn btn-dark btn-lg toggle"><i class="fa fa-bars"></i></a>
-<nav id="sidebar-wrapper">
-    <ul class="sidebar-nav">
-        <a id="menu-close" href="#" class="btn btn-light btn-lg pull-right toggle"><i class="fa fa-times"></i></a>
-        <li class="sidebar-brand">
-            <a href="#top" onclick=$("#menu-close").click();>START</a>
-        </li>
-        <li>
-            <a href="#top" onclick=$("#menu-close").click();>Home</a>
-        </li>
-        <li>
-            <a href="#about" onclick=$("#menu-close").click();>About</a>
-        </li>
-        <li>
-            <a href="#predict" onclick=$("#menu-close").click();>Analyze</a>
-        </li>
-        <li>
-            <a href="#portfolio" onclick=$("#menu-close").click();>Portfolio</a>
-        </li>
-        <li>
-            <a href="#contact" onclick=$("#menu-close").click();>Contact</a>
-        </li>
-    </ul>
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#myPage">VentureNet</a>
+        </div>
+        <div class="collapse navbar-collapse" id="myNavbar">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#about">ABOUT US</a></li>
+                <li><a href="#team">TEAM</a></li>
+                <li><a href="#contact">CONTACT US</a></li>
+            </ul>
+        </div>
+    </div>
 </nav>
 
-<!-- Header -->
-<header id="top" class="header">
-    <div class="text-vertical-center">
-        <!-- <img class="img-portfolio img-responsive" src="img/logo.jpg" width="100px" height="100px">  -->
-        <h1>COMPANY ACQUISITION PREDICTION</h1>
-        <br>
-    </div>
-</header>
+<div class="jumbotron text-center">
+    <h1>Venture Net</h1>
+    <p>We specialize in analysing the data for company acquisition  </p>
+    <form action="/getStats" method="post" class="form-inline">
+        <input id="comp1" name="company1" type="text" class="form-control" size="30" placeholder="Acquiring Company" required>
+        <input id="comp2" name="company2" type="text" class="form-control" size="30" placeholder="Company to be Acquired" required>
+        <!--<button type="button" class="btn btn-danger">Analyse</button>-->
+        <input id="sbtBtn" class="btn btn-success" style="font-size: 19px" type="submit"
+               value="ANALYZE"><br/>
+    </form>
+</div>
 
-<!-- About -->
-<section id="about" class="about">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12 text-center">
-                <h2>The focus is on the future acquisition of companies in IT sector based on the financial data of company from past 3 years</h2>
-
-                <p class="lead">It provides you a systematic analysis of the company’s financial data and determine whether the company can acquire other company or can be acquired by other company in the future.</p>
-            </div>
+<!-- Container (About Section) -->
+<div id="about" class="container-fluid">
+    <div class="row">
+        <div class="col-sm-8">
+            <h2>About Venture Net</h2><br>
+            <h4>We help companies improve their odds of successful M&A through an integrated, battle-tested approach that links acquisition strategy, diligence and merger integration.</h4><br>
+            <p>This project focuses on the future acquisition of companies in IT sector based on the companies past 3 years of financial data. In twenty first century, acquisitions have become the most frequently used methods of growth for companies. An acquisition is considered successful if the acquiring firm value is increased and both the acquiring and acquired company benefit the competition and consumers. In the world of globalization and increasing economy, top companies compete with each other to achieve optimum share in the market. Everyday people from top management level to low management level work hard to achieve the best in what they do and getting their goals as quick as possible. Some companies also follow various tactics like competing in the market of their core competencies or fighting against their rivals in the same business. But out of these, the most popular way is to take over – acquisition. </p>
+            <br><button class="btn btn-default btn-lg">Get in Touch</button>
         </div>
-        <!-- /.row -->
+        <div class="col-sm-4">
+            <!--<span class="glyphicon glyphicon-signal logo"></span>-->
+            <img src="images/data.png" alt="Data" width="400" height="300">
+        </div>
     </div>
-    <!-- /.container -->
-</section>
-
-<!-- Services -->
-<!-- The circle icons use Font Awesome's stacked icon classes. For more information, visit http://fontawesome.io/examples/ -->
-<form action="/getStats" method="post">
-    <section id="predict" class="predict">
-        <aside class="call-to-action bg-primary">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-6">
-                        <input id="comp1" name="comp1" type="text" required="true" class="form-control"
-                               placeholder="Acquiring Company"><br>
-                    </div>
-                    <div class="col-lg-5">
-                        <input id="comp2" name="comp2" required="true" type="text" class="form-control"
-                               placeholder="Company to be acquired">
-                    </div>
-                    <!-- <span class="input-group-btn">
-                        <button class="btn btn-default" type="button">
-                            <i class="fa fa-search"></i>
-                        </button>
-                    </span>
-    -->
-                    <br></div>
-                <center>
-                    <!--<a class="btn btn-lg btn-light">Start Prediction</a>-->
-                    <input id="sbtBtn" class="btn btn-success" style="font-size: 19px" type="submit"
-                           value="ANALYZE"><br/>
-                    <% if(error == 'Error') { %>
-                    <label class="lead" style="color: rgb(190, 190, 208)"><b>Error: No data found! :(</b></label>
-                    <% } %>
-                </center>
+</div>
 
 
-                <!-- <a href="#" class="btn btn-lg btn-light">Click Me!</a>
-                <a href="#" class="btn btn-lg btn-dark">Look at Me!</a>
-             --></div>
-            </div>
-            </div>
-        </aside>
+<div id="team" class="container-fluid text-center">
+    <h2>Our Team</h2>
+    <br>
+    <div class="row slideanim">
+        <div class="col-sm-4">
+            <img class="img-circle" src="images/siddharth.jpg" alt="Siddharth" width="100" height="100">
+            <h4>Siddharth Warang</h4>
+            <a target="_blank" href="https://www.linkedin.com/in/siddharthwarang" style="text-decoration:none;"><span style="font: 80% Arial,sans-serif; color:#0783B6;"><img src="https://static.licdn.com/scds/common/u/img/webpromo/btn_in_20x15.png" width="20" height="15" alt="View Siddharth Warang's LinkedIn profile" style="vertical-align:middle;" border="0">&nbsp;View Siddharth Warang's profile</span></a>
+        </div>
+        <div class="col-sm-4">
+            <img class="img-circle" src="images/shreyasi.jpg" alt="Shreyasi" width="100" height="100">
+            <h4>Shreyasi Vad</h4>
+            <a target="_blank" href="https://www.linkedin.com/in/shreyasivad" style="text-decoration:none;"><span style="font: 80% Arial,sans-serif; color:#0783B6;"><img src="https://static.licdn.com/scds/common/u/img/webpromo/btn_in_20x15.png" width="20" height="15" alt="View Shreyasi Vad's LinkedIn profile" style="vertical-align:middle;" border="0">&nbsp;View Shreyasi Vad's profile</span></a>
+        </div>
+        <div class="col-sm-4">
+            <img class="img-circle" src="images/nitesh.jpg" alt="Nitesh" width="100" height="100">
+            <h4>Nitesh Wadhwa</h4>
+            <a target="_blank" href="https://www.linkedin.com/in/niteshwadhwa" style="text-decoration:none;"><span style="font: 80% Arial,sans-serif; color:#0783B6;"><img src="https://static.licdn.com/scds/common/u/img/webpromo/btn_in_20x15.png" width="20" height="15" alt="View Nitesh Wadhwa's LinkedIn profile" style="vertical-align:middle;" border="0">&nbsp;View Nitesh Wadhwa's profile</span></a>
+        </div>
+    </div>
+    <br><br>
+    <div class="row slideanim">
+        <div class="col-sm-4">
+            <img class="img-circle" src="images/yogesh.jpg" alt="Yogesh" width="100" height="100">
+            <h4>Yogesh Chauhan</h4>
+            <a target="_blank" href="https://www.linkedin.com/in/chauhanyogesh" style="text-decoration:none;"><span style="font: 80% Arial,sans-serif; color:#0783B6;"><img src="https://static.licdn.com/scds/common/u/img/webpromo/btn_in_20x15.png" width="20" height="15" alt="View Yogesh Chauhan's LinkedIn profile" style="vertical-align:middle;" border="0">&nbsp;View Yogesh Chauhan's profile</span></a>
+        </div>
+        <div class="col-sm-4">
+            <img class="img-circle" src="images/amitesh.jpg" alt="Amitesh" width="100" height="100">
+            <h4>Amitesh Jaiswal</h4>
+            <a target="_blank" href="https://www.linkedin.com/in/jaiswalamitesh" style="text-decoration:none;"><span style="font: 80% Arial,sans-serif; color:#0783B6;"><img src="https://static.licdn.com/scds/common/u/img/webpromo/btn_in_20x15.png" width="20" height="15" alt="View Amitesh Jaiswal's LinkedIn profile" style="vertical-align:middle;" border="0">&nbsp;View Amitesh Jaiswal's  profile</span></a>
+        </div>
+        <div class="col-sm-4">
+            <img class="img-circle" src="images/jagmohan.jpg" alt="Jagmohan" width="100" height="100">
+            <h4 style="color:#303030;">Jagmohan Singh</h4>
+            <a target="_blank" href="https://www.linkedin.com/pub/jagmohan-singh/36/182/708" style="text-decoration:none;"><span style="font: 80% Arial,sans-serif; color:#0783B6;"><img src="https://static.licdn.com/scds/common/u/img/webpromo/btn_in_20x15.png" width="20" height="15" alt="View Jagmohan Singh's LinkedIn profile" style="vertical-align:middle;" border="0">&nbsp;View Jagmohan Singh's profile</span></a>
+        </div>
+    </div>
+</div>
 
-        <!-- Callout -->
-        <aside class="callout">
-            <div class="text-vertical-center">
-                <h1>Data Analytics</h1>
-            </div>
-        </aside>
-    </section>
-</form>
-<!-- Portfolio -->
-<section id="portfolio" class="portfolio">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-10 col-lg-offset-1 text-center">
-                <h2></h2>
-                <hr class="small">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="portfolio-item">
-                            <a href="#">
-                                <img class="img-portfolio img-responsive" src="images/fbwhatsapp.jpg" width="300px"
-                                     height="300px">
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="portfolio-item">
-                            <a href="#">
-                                <img class="img-portfolio img-responsive" src="images/applebeats.jpg" width="300px"
-                                     height="300px">
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="portfolio-item">
-                            <a href="#">
-                                <img class="img-portfolio img-responsive" src="images/motorola.jpg" width="300px"
-                                     height="300px">
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="portfolio-item">
-                            <a href="#">
-                                <img class="img-portfolio img-responsive" src="images/nokia-ms.jpg" width="300px"
-                                     height="300px">
-                            </a>
-                        </div>
-                    </div>
+
+<div id="contact" class="container-fluid bg-grey">
+    <h2 class="text-center">CONTACT</h2>
+    <div class="row">
+        <div class="col-sm-5">
+            <p>Contact us and we'll get back to you within 24 hours.</p>
+            <p><span class="glyphicon glyphicon-map-marker"></span> San Jose, US</p>
+            <p><span class="glyphicon glyphicon-phone"></span> +01 111111111</p>
+            <p><span class="glyphicon glyphicon-envelope"></span> info@venturenet.com</p>
+        </div>
+        <div class="col-sm-7 slideanim">
+            <div class="row">
+                <div class="col-sm-6 form-group">
+                    <input class="form-control" id="name" name="name" placeholder="Name" type="text" required>
+                </div>
+                <div class="col-sm-6 form-group">
+                    <input class="form-control" id="email" name="email" placeholder="Email" type="email" required>
                 </div>
             </div>
-            <!-- /.col-lg-10 -->
-        </div>
-        <!-- /.row -->
-    </div>
-    <!-- /.container -->
-</section>
-
-<!-- Footer -->
-<footer>
-    <section id="contact" class="contact">
-        <div>
-            <div class="row" style="background: #E6E610;">
-                <div class="col-lg-12 text-center" style="background: #63ADE6;">
-                    <h2><strong>TEAM 24- Data Mining</strong></h2>
-                    <ul class="list-unstyled">
-                        <li><strong>SAN JOSE STATE UNIVERSITY</strong></li>
-                        <li>1 Washington Sq, San Jose, CA 95192</li>
-                    </ul>
-                    <br>
-                    <ul class="list-inline">
-                        <li>
-                            <a href="#"><i class="fa fa-facebook fa-fw fa-3x"></i></a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-twitter fa-fw fa-3x"></i></a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-dribbble fa-fw fa-3x"></i></a>
-                        </li>
-                    </ul>
-                    <hr class="small">
-                    <p class="text-muted">Copyright &copy; Team 24 2016</p>
+            <textarea class="form-control" id="comments" name="comments" placeholder="Comment" rows="5"></textarea><br>
+            <div class="row">
+                <div class="col-sm-12 form-group">
+                    <button class="btn btn-default pull-right" type="submit">Send</button>
                 </div>
             </div>
         </div>
-    </section>
-</footer>
+    </div>
+</div>
 
-<!-- jQuery -->
-<script src="js/jquery.js"></script>
 
-<!-- Bootstrap Core JavaScript -->
-<script src="js/bootstrap.min.js"></script>
-
-<!-- Custom Theme JavaScript -->
 <script>
-    // Closes the sidebar menu
-    $("#menu-close").click(function (e) {
-        e.preventDefault();
-        $("#sidebar-wrapper").toggleClass("active");
-    });
+    $(document).ready(function(){
+        // Add smooth scrolling to all links in navbar + footer link
+        $(".navbar a, footer a[href='#myPage']").on('click', function(event) {
 
-    // Opens the sidebar menu
-    $("#menu-toggle").click(function (e) {
-        e.preventDefault();
-        $("#sidebar-wrapper").toggleClass("active");
-    });
+            // Prevent default anchor click behavior
+            event.preventDefault();
 
-    // Scrolls to the selected menu item on the page
-    $(function () {
-        $('a[href*=#]:not([href=#])').click(function () {
-            if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') || location.hostname == this.hostname) {
+            // Store hash
+            var hash = this.hash;
 
-                var target = $(this.hash);
-                target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
-                if (target.length) {
-                    $('html,body').animate({
-                        scrollTop: target.offset().top
-                    }, 1000);
-                    return false;
-                }
-            }
+            // Using jQuery's animate() method to add smooth page scroll
+            // The optional number (900) specifies the number of milliseconds it takes to scroll to the specified area
+            $('html, body').animate({
+                scrollTop: $(hash).offset().top
+            }, 900, function(){
+
+                // Add hash (#) to URL when done scrolling (default click behavior)
+                window.location.hash = hash;
+            });
         });
-    });
+
+        $(window).scroll(function() {
+            $(".slideanim").each(function(){
+                var pos = $(this).offset().top;
+
+                var winTop = $(window).scrollTop();
+                if (pos < winTop + 600) {
+                    $(this).addClass("slide");
+                }
+            });
+        });
+    })
 </script>
 
 </body>
-
 </html>
