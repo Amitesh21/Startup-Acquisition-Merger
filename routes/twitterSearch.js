@@ -3,7 +3,10 @@ var util = require('util'),
     sentimentAnalysis = require('./twitterSentimentAnalysis.js');
 
 var config = {
-    
+    consumer_key: '8cMkqA5iQEMbzYYE8E6UhCyQl',
+    consumer_secret: 'yH2PjGXSFqTIgGkcHiNwMAPAPvhhiYhBx3QvBQIiUFB4uLmhxi',
+    access_token: '1960271072-lh7wK31PTd2ENB2oHMUgqC41wkxULvsTpGqKUnI',
+    access_token_secret: 'rbv3ezbRNQ5Ni8C2Hw25m0HOw3oEdZFC6p6hbxdRfa7a7'
 };
 
 

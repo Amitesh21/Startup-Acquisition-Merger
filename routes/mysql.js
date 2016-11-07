@@ -12,7 +12,7 @@ function getConnection() {
     var connection = mysql.createConnection({
         host: 'localhost',
         user: 'root',
-        password: '',
+        password: 'root',
         database: 'cmpe239_proj',
         port: 3306
     });
