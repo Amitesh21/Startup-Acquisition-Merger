@@ -1,4 +1,4 @@
-# Company_Acquisition_Prediction
+# Startup-Acquisition-Merger
 CMPE 239: Web &amp; Data Mining
 
 ##Project Statement:
