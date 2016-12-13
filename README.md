@@ -23,25 +23,3 @@ Market Analysts.
 2. Navigate to bin folder.
 3. Type "node www" on your command prompt/terminal.
 4. Hit "http://localhost:3000"
-
-##Project Screenshots:
-
--> Homepage:
-
-![alt tag](https://github.com/vijeshjain/Company_Acquisition_Prediction/blob/master/Screenshots/Homepage.PNG)
-
--> Analyze a company pair [ Microsoft (MSFT) & Nokia (NOK) ]:
-
-![alt tag](https://github.com/vijeshjain/Company_Acquisition_Prediction/blob/master/Screenshots/Analyze.PNG)
-
--> Visualize Stats:
-
-![alt tag](https://github.com/vijeshjain/Company_Acquisition_Prediction/blob/master/Screenshots/Stats.PNG)
-
--> Sentiment Analysis:
-
-![alt tag](https://github.com/vijeshjain/Company_Acquisition_Prediction/blob/master/Screenshots/Tweets.PNG)
-
--> Merger & Acquisition (M&A) Prediction Results:
-
-![alt tag](https://github.com/vijeshjain/Company_Acquisition_Prediction/blob/master/Screenshots/Prediction.PNG)
